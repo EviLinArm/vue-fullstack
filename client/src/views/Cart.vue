@@ -88,6 +88,8 @@ export default {
           ...form,
           products: this.cartItems,
         })
+        console.log(intent);
+        console.log(intent.paymentIntent);
         this.paymentIntent = intent.paymentIntent.client_secret
       } catch (err) {
         console.log(err)

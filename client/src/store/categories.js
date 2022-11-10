@@ -12,7 +12,7 @@ const mutations = {
     },
 }
 
-const actions =  {
+const actions = {
     async fetchCategory({ commit }, id) {
         try {
             const category = await getCategory(id)

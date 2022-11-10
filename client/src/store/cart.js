@@ -25,7 +25,9 @@ const mutations = {
 const actions = {
     async handleBuy({ getters, commit }, form) {
         try {
-            const intent = await getPaymentIntent({amount: getters.cartTotalPrice}, ...form);
+            console.log({amount: getters.cartTotalPrice})
+            console.log(form)
+            const intent = await getPaymentIntent(form);
             return intent;
         } catch (e) {
             commit('setPaymentError', e)

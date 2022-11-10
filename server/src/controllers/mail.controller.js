@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
     const mail = await transporter.sendMail({
-        from: `"IGWT delivery" <shop@mygameshop.ru>`,
+        from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
         to: `${email}`,
         subject: "Подтверждение заказа",
         text: `Ваш заказ с номером  ${_id} подтвержден`,
