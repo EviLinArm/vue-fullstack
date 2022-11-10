@@ -13,7 +13,7 @@ const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
     try {
         const mail = await transporter.sendMail({
-            from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
+            from: `"Ramen games delivery" <${process.env.MAIL_LOGIN}>`,
             to: `${email}`,
             subject: "Подтверждение заказа",
             text: `Ваш заказ с номером  ${_id} подтвержден`,
@@ -27,7 +27,6 @@ const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
         return mail
     } catch (e) {
-        console.log('Mail one error')
         console.log(e)
     }
 
@@ -54,7 +53,6 @@ const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone
 
     return mail
     } catch (e) {
-        console.log('Mail two error')
         console.log(e)
     }
 
