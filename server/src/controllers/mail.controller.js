@@ -35,7 +35,7 @@ const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone
     console.log('Mail Two!')
 
     const mail = await transporter.sendMail({
-        from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
+        from: `"Ramen games delivery" <${process.env.MAIL_LOGIN}>`,
         to: `${adminEmail}`,
         subject: "У вас новый заказ",
         text: `Создан заказ с номером  ${_id}`,
