@@ -11,29 +11,31 @@ const transporter = nodemailer.createTransport({
 
 const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
-    console.log('Mail One!')
-
-    const mail = await transporter.sendMail({
-        from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
-        to: `${email}`,
-        subject: "Подтверждение заказа",
-        text: `Ваш заказ с номером  ${_id} подтвержден`,
-        html: `
+    try {
+        const mail = await transporter.sendMail({
+            from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
+            to: `${email}`,
+            subject: "Подтверждение заказа",
+            text: `Ваш заказ с номером  ${_id} подтвержден`,
+            html: `
       <ul class="list-group">
         <li class="list-group-item"> Ghost of Fuji - 59$ </li>
         <li class="list-group-item"> Last of Them 7 - 49$ </li>
       </ul>
     `,
-    });
+        });
 
-    return mail
+        return mail
+    } catch (e) {
+        console.log('Mail one error')
+        console.log(e)
+    }
 
 }
 
 const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone }, adminEmail = `${process.env.MAIL_LOGIN}`,) => {
 
-    console.log('Mail Two!')
-
+    try {
     const mail = await transporter.sendMail({
         from: `"Ramen games delivery" <${process.env.MAIL_LOGIN}>`,
         to: `${adminEmail}`,
@@ -51,6 +53,10 @@ const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone
     });
 
     return mail
+    } catch (e) {
+        console.log('Mail two error')
+        console.log(e)
+    }
 
 }
 
