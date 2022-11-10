@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <router-link class="navbar-brand" to="/">In Games We Trust</router-link>
+      <router-link class="navbar-brand" to="/">Ramen Games</router-link>
       <button
           class="navbar-toggler"
           type="button"

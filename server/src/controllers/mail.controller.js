@@ -11,6 +11,8 @@ const transporter = nodemailer.createTransport({
 
 const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
+    console.log('Mail One!')
+
     const mail = await transporter.sendMail({
         from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
         to: `${email}`,
@@ -28,10 +30,12 @@ const createUserConfirmationOrderEmail = async ({ _id, email }) => {
 
 }
 
-const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone }, adminEmail = 'ararat@incodewetrust.ru',) => {
+const createAdminConfirmationOrderEmail = async ({ _id, address, fullname, phone }, adminEmail = `${process.env.MAIL_LOGIN}`,) => {
+
+    console.log('Mail Two!')
 
     const mail = await transporter.sendMail({
-        from: `"IGWT delivery" <shop@mygameshop.ru>`,
+        from: `"IGWT delivery" <${process.env.MAIL_LOGIN}>`,
         to: `${adminEmail}`,
         subject: "У вас новый заказ",
         text: `Создан заказ с номером  ${_id}`,
