@@ -1,9 +1,9 @@
 const boom = require("boom");
 
-const genericCrud = (model) => ({
+const genericCrud = (model, { get = '', getAll = '' }) => ({
     async get({ params: { id } }, res) {
         try {
-            const item = await model.findById(id);
+            const item = await model.findById(id).populate(get.get);
             return res.status(200).send(item);
         } catch (e) {
             return res.status(400).send(boom.boomify(e));
@@ -11,7 +11,7 @@ const genericCrud = (model) => ({
     },
     async getAll(_, res)  {
         try {
-            const items = await model.find();
+            const items = await model.find().populate(getAll.getAll);
             return res.status(200).send(items);
         } catch (e) {
             return res.status(400).send(boom.boomify(e));

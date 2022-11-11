@@ -4,17 +4,20 @@ const { omit } = require('ramda')
 const { User, Token } = require('../model')
 
 module.exports = {
-    async logout({headers: authorization}, res) {
-        const user = jwt.decode(authorization, process.env.JWT_SECRET)
-        console.log(user)
-
-        const foundToken = await Token.findOne({ user: user.userId})
+    async logout({ body: { refreshToken } }, res) {
+        const foundToken = await Token.findOne({ token : refreshToken })
 
         if (!foundToken) {
             return res.status(403).send({
                 message: 'Token error!'
             })
         }
+
+        await Token.findByIdAndDelete(foundToken._id)
+
+        return res.status(200).send({
+            message: 'Unlogin success!'
+        })
     },
 
     async refreshToken({ body: { refreshToken } }, res) {
@@ -83,7 +86,21 @@ module.exports = {
                 email: foundUser.email,
             }, process.env.JWT_SECRET_REFRESH)
 
-            const item = new Token({token: refreshToken});
+            const foundToken = await Token.findOne({
+                user: foundUser._id
+            })
+
+            if (foundToken) {
+                await Token.findByIdAndUpdate(foundToken._id, { token: refreshToken })
+                return res.status(200).send({
+                    accessToken,
+                    refreshToken,
+                    email: foundUser.email,
+                })
+
+            }
+
+            const item = new Token({token: refreshToken, user: foundUser._id });
             await item.save();
 
             return res.status(200).send({
