@@ -54,9 +54,6 @@ export default {
   },
   components: {
     Icon: () => import('@/components/icon/Icon'),
-  },
-  mounted() {
-    console.log(this.$slots)
-  },
+  }
 }
 </script>

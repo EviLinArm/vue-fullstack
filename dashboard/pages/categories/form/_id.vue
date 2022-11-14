@@ -30,6 +30,7 @@ import { config } from '../setup'
 
 // Mixins
 import { relationsMixin } from '@/mixins/relation.mixin'
+import login from "~/pages/login";
 
 export default {
   name: config.formName,
@@ -63,6 +64,15 @@ export default {
     if (this.isUpdating) {
       await this.fetchItem(this.$route.params.id)
       // мы получим объект с апи
+
+
+      console.log(this.item.products)
+      console.log(this.item.products.some(id => id === "636e5627acd8d38da07891e2"), '123')
+      if (this.item.products) {
+        let category = this.products.filter((product) => this.item.products.some(id => id === product._id))
+        this.model = { ...this.item, products: category }
+        return
+      }
 
       this.model = { ...this.item }
       return
@@ -102,10 +112,10 @@ export default {
     },
     async onFormSubmit() {
       if (this.isUpdating) {
-        this.onItemUpdate()
+        await this.onItemUpdate()
         return
       }
-      this.onItemCreate()
+      await this.onItemCreate()
     },
   },
 }

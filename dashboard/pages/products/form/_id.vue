@@ -25,6 +25,7 @@ import { config } from '../setup'
 
 // Mixins
 import { relationsMixin } from '@/mixins/relation.mixin'
+import login from "~/pages/login";
 
 export default {
   name: config.formName,
@@ -61,6 +62,12 @@ export default {
       await this.fetchItem(this.$route.params.id)
       // мы получим объект с апи
 
+      if (this.item.category) {
+        let category = this.categories.filter((category) => (category._id === this.item.category))
+        this.model = { ...this.item, category: category[0] }
+        return
+      }
+
       this.model = { ...this.item }
       return
     }
@@ -85,7 +92,7 @@ export default {
     async onItemUpdate() {
       const updatedModel = {
         ...this.model,
-        category: this.model.category.id,
+        category: this.model.category._id,
       }
       await this.updateItem({
         id: this.$route.params.id,
@@ -99,10 +106,10 @@ export default {
     },
     async onFormSubmit() {
       if (this.isUpdating) {
-        this.onItemUpdate()
+        await this.onItemUpdate()
         return
       }
-      this.onItemCreate()
+      await this.onItemCreate()
     },
   },
 }

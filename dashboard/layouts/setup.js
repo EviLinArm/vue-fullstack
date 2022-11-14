@@ -8,7 +8,7 @@ const menu = [
     to: '/categories',
   },
   {
-    name: 'Товары',
+    name: 'Продукты',
     to: '/products',
   },
   {

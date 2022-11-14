@@ -4,7 +4,6 @@ export const relationsMixin = {
       const foundField = this.schema.fields.find(
         (field) => field.model === fieldKey
       )
-      console.log(this.schema.fields, 'fields')
       foundField.values = [...values]
     },
   },
