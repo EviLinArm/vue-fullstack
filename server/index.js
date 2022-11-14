@@ -3,8 +3,8 @@ const express = require ('express');
 const bodyParser = require ('body-parser');
 const mongoose = require ('mongoose');
 const http = require ('http');
-const cors = require ('cors');
 const { routes } = require ('./src/routes/index.js');
+const { join } = require('path');
 
 // setup database
 mongoose
@@ -14,9 +14,10 @@ mongoose
 
 // init app
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// app.use('/', (_, res) => res.sendFile(join(__dirname + '/index.html')))
 
 routes.forEach((item) => {
     app.use(`/api/v1/${item}`, require(`./src/routes/${item}`));
